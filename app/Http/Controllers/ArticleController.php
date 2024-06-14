@@ -83,6 +83,13 @@ public function edit(Request $request, Article $article){
 
 }
 
+public function delete( Article $article){
+    //dd($article);
+    $article->delete();
+    //anche delete è un metodo già creato da laravel
+    return redirect(route('home'))->with('message','articolo cancellato con successo');
+}
+
 // sneha
 // namespace App\Http\Controllers;
 
