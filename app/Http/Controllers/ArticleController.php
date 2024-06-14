@@ -67,7 +67,21 @@ use App\Http\Requests\ArticleRequest;
     
     
  }
+public function edit(Request $request, Article $article){
+    //inserisco sia la classe Request che la classe Article
+    //ricordati che la request serve a fare una richiesta dei dati da parte del client(posso personalizzare la richiesta come visto prima)
+    //la classe Article serve a prendere il $article CHE che voglio modificare
+    //dd($request->all(),$article);
+    //sto chiedendo di vedere, dopo avere modificato l'articolo e fatto submit, tutte le request, ovvero le modifiche che ho fatto e l'articolo in questione.
+   $article->title = $request->title;
+   $article->body = $request->body;
+   $article->img  = $request->has('img') ? $request->file('img')->store('public') : $article->img; //se esiste un file img, lo salvo, altrimenti lascio l'img precedente!
+   // il tipo di scrittura sopra da due possibili valori al punto interrogativo ovvero true o false
+   $article->save();  
+   //salvo le modifiche, non ho creato una nuova istaqnza bensì aggiornato una vecchia
+   return redirect(route('home'))->with('message','articolo modificato con successo');
 
+}
 
 // sneha
 // namespace App\Http\Controllers;
